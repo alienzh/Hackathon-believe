@@ -22,6 +22,7 @@ import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.gms.common.annotation.KeepName
@@ -130,6 +131,7 @@ class SinglePlayerLiveActivity : BaseUnityActivity<ActivitySinglePlayerLivePrevi
     override fun initData() {
         channelName = intent.getStringExtra(KEY_CHANNEL_NAME) ?: "Test1"
         roomScene = intent.getIntExtra(KEY_ROOM_SCENE, RoomScene.Welcome.value)
+        KeyCenter.channelName = channelName
         rtcConnection = RtcConnection(channelName, KeyCenter.curUid)
         RtmEngineInstance.subscribeMessage(channelName)
         RtmEngineInstance.setRtmChannelEventListener(RtmEngineInstance.IRtmChannelEventListener(

@@ -128,40 +128,40 @@ internal constructor(
         val leftFootIndex = pose.getPoseLandmark(PoseLandmark.LEFT_FOOT_INDEX)
         val rightFootIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_FOOT_INDEX)
 
-//        val poseMap = mutableMapOf<Int, PointF3D>().apply {
-//            leftEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 7
-//            rightEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 8
-//            leftShoulder?.let { put(PoseLandmark.LEFT_SHOULDER , it.position3D) } //11
-//            rightShoulder?.let { put(PoseLandmark.RIGHT_SHOULDER, it.position3D) } //12
-//            leftElbow?.let { put(PoseLandmark.LEFT_ELBOW, it.position3D) } //13
-//            rightElbow?.let { put(PoseLandmark.RIGHT_ELBOW , it.position3D) } //14
-//            leftWrist?.let { put(PoseLandmark.LEFT_WRIST, it.position3D) } //15
-//            rightWrist?.let { put(PoseLandmark.RIGHT_WRIST , it.position3D) } //16
-//            leftHip?.let { put(PoseLandmark.LEFT_HIP, it.position3D) } //23
-//            rightHip?.let { put(PoseLandmark.RIGHT_HIP , it.position3D) }  //24
-//            leftKnee?.let { put(PoseLandmark.LEFT_KNEE, it.position3D) } //25
-//            rightKnee?.let { put(PoseLandmark.RIGHT_KNEE , it.position3D) } //26
-//            leftAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //27
-//            rightAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //28
-//        }
+        val poseMap = mutableMapOf<Int, PointF3D>().apply {
+            leftEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 7
+            rightEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 8
+            leftShoulder?.let { put(PoseLandmark.LEFT_SHOULDER , it.position3D) } //11
+            rightShoulder?.let { put(PoseLandmark.RIGHT_SHOULDER, it.position3D) } //12
+            leftElbow?.let { put(PoseLandmark.LEFT_ELBOW, it.position3D) } //13
+            rightElbow?.let { put(PoseLandmark.RIGHT_ELBOW , it.position3D) } //14
+            leftWrist?.let { put(PoseLandmark.LEFT_WRIST, it.position3D) } //15
+            rightWrist?.let { put(PoseLandmark.RIGHT_WRIST , it.position3D) } //16
+            leftHip?.let { put(PoseLandmark.LEFT_HIP, it.position3D) } //23
+            rightHip?.let { put(PoseLandmark.RIGHT_HIP , it.position3D) }  //24
+            leftKnee?.let { put(PoseLandmark.LEFT_KNEE, it.position3D) } //25
+            rightKnee?.let { put(PoseLandmark.RIGHT_KNEE , it.position3D) } //26
+            leftAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //27
+            rightAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //28
+        }
 
         // 后置摄像头左右颠倒下
-        val poseMap = mutableMapOf<Int, PointF3D>().apply {
-            leftEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 7
-            rightEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 8
-            leftShoulder?.let { put(PoseLandmark.RIGHT_SHOULDER, it.position3D) } //11
-            rightShoulder?.let { put(PoseLandmark.LEFT_SHOULDER, it.position3D) } //12
-            leftElbow?.let { put(PoseLandmark.RIGHT_ELBOW, it.position3D) } //13
-            rightElbow?.let { put(PoseLandmark.LEFT_ELBOW, it.position3D) } //14
-            leftWrist?.let { put(PoseLandmark.RIGHT_WRIST, it.position3D) } //15
-            rightWrist?.let { put(PoseLandmark.LEFT_WRIST, it.position3D) } //16
-            leftHip?.let { put(PoseLandmark.RIGHT_HIP, it.position3D) } //23
-            rightHip?.let { put(PoseLandmark.LEFT_HIP, it.position3D) }  //24
-            leftKnee?.let { put(PoseLandmark.RIGHT_KNEE, it.position3D) } //25
-            rightKnee?.let { put(PoseLandmark.LEFT_KNEE, it.position3D) } //26
-            leftAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //27
-            rightAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //28
-        }
+//        val poseMap = mutableMapOf<Int, PointF3D>().apply {
+//            leftEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 7
+//            rightEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 8
+//            leftShoulder?.let { put(PoseLandmark.RIGHT_SHOULDER, it.position3D) } //11
+//            rightShoulder?.let { put(PoseLandmark.LEFT_SHOULDER, it.position3D) } //12
+//            leftElbow?.let { put(PoseLandmark.RIGHT_ELBOW, it.position3D) } //13
+//            rightElbow?.let { put(PoseLandmark.LEFT_ELBOW, it.position3D) } //14
+//            leftWrist?.let { put(PoseLandmark.RIGHT_WRIST, it.position3D) } //15
+//            rightWrist?.let { put(PoseLandmark.LEFT_WRIST, it.position3D) } //16
+//            leftHip?.let { put(PoseLandmark.RIGHT_HIP, it.position3D) } //23
+//            rightHip?.let { put(PoseLandmark.LEFT_HIP, it.position3D) }  //24
+//            leftKnee?.let { put(PoseLandmark.RIGHT_KNEE, it.position3D) } //25
+//            rightKnee?.let { put(PoseLandmark.LEFT_KNEE, it.position3D) } //26
+//            leftAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //27
+//            rightAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //28
+//        }
         UnityProtocol.sendPosition3DToUnity(poseMap)
 
         // Face

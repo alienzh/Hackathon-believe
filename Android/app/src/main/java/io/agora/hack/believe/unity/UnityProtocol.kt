@@ -20,7 +20,7 @@ object UnityProtocol {
             pointMap.entries.forEach {
                 val pointF3D = it.value
                 jsonObjPoint.put(it.key.toString(), JSONArray().apply {
-                    put(pointF3D.x)
+                    put(-pointF3D.x)
                     put(-pointF3D.y)
                     put(pointF3D.z)
                 })

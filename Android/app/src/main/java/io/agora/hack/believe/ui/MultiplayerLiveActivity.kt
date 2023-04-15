@@ -43,6 +43,7 @@ import io.agora.rtc2.ChannelMediaOptions
 import io.agora.rtc2.Constants
 import io.agora.rtc2.RtcConnection
 import io.agora.rtm.MessageEvent
+import io.agora.rtm.PresenceEvent
 import io.agora.rtm.RtmConstants
 import java.io.IOException
 
@@ -162,6 +163,7 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
     override fun initData() {
         channelName = intent.getStringExtra(KEY_CHANNEL_NAME) ?: "Test1"
         roomScene = intent.getIntExtra(KEY_ROOM_SCENE, RoomScene.Welcome.value)
+        KeyCenter.channelName = channelName
         rtcConnection = RtcConnection(channelName,KeyCenter.curUid)
         RtmEngineInstance.subscribeMessage(channelName)
         RtmEngineInstance.setRtmChannelEventListener(RtmEngineInstance.IRtmChannelEventListener(
@@ -173,7 +175,7 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
                         event.message
                     )
                 handleRtcMessage(msg)
-            }
+            },
         ))
         joinChannel()
     }

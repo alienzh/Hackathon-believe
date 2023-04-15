@@ -38,6 +38,7 @@ import io.agora.rtc2.ChannelMediaOptions
 import io.agora.rtc2.Constants
 import io.agora.rtc2.RtcConnection
 import io.agora.rtm.MessageEvent
+import io.agora.rtm.PresenceEvent
 import io.agora.rtm.RtmConstants
 
 /** 观众. */
@@ -98,6 +99,7 @@ class AudienceLiveActivity : BaseUnityActivity<ActivityAudienceLivePreviewBindin
     override fun initData() {
         channelName = intent.getStringExtra(KEY_CHANNEL_NAME) ?: "Test1"
         rtcConnection = RtcConnection(channelName, KeyCenter.curUid)
+        KeyCenter.channelName = channelName
         RtmEngineInstance.subscribeMessage(channelName)
         RtmEngineInstance.setRtmChannelEventListener(RtmEngineInstance.IRtmChannelEventListener(
             onMessageEvent = { event: MessageEvent? ->
