@@ -1,0 +1,309 @@
+{
+  "title": "虚拟人形象-动作对应列表",
+  "avatar_list": [
+    {
+      "avatar_name": "依丹",
+      "avatar_id": "118801001",
+      "ctrl_list": [
+        {
+          "ctrl_name": "右手打招呼",
+          "ctrl_id": "A_RH_bye_O"
+        },
+        {
+          "ctrl_name": "右手有请",
+          "ctrl_id": "A_RH_please1_O"
+        },
+        {
+          "ctrl_name": "右手向右",
+          "ctrl_id": "A_RH_please_O"
+        },
+        {
+          "ctrl_name": "右手右上",
+          "ctrl_id": "A_RH_introduced1_O"
+        },
+        {
+          "ctrl_name": "右手掌心呈现介绍",
+          "ctrl_id": "A_RH_introduced_O"
+        },
+        {
+          "ctrl_name": "身体微侧，左手有请",
+          "ctrl_id": "A_LH_please_O"
+        },
+        {
+          "ctrl_name": "左手向上",
+          "ctrl_id": "A_LH_introduced_O"
+        },
+        {
+          "ctrl_name": "右手食指强调",
+          "ctrl_id": "A_RH_emphasize_O"
+        },
+        {
+          "ctrl_name": "右手手掌强调",
+          "ctrl_id": "A_RH_emphasize2_O"
+        },
+        {
+          "ctrl_name": "右手点赞",
+          "ctrl_id": "A_RH_good_O"
+        },
+        {
+          "ctrl_name": "右手ok",
+          "ctrl_id": "A_RH_ok_O"
+        },
+        {
+          "ctrl_name": "右手比心",
+          "ctrl_id": "A_RH_like_O"
+        },
+        {
+          "ctrl_name": "右手握拳加油",
+          "ctrl_id": "A_RH_encourage_O"
+        },
+        {
+          "ctrl_name": "双手强调",
+          "ctrl_id": "A_RLH_emphasize_O"
+        }
+      ]
+    },
+    {
+      "avatar_name": "马可",
+      "avatar_id": "110017006",
+      "ctrl_list": [
+        {
+          "ctrl_id": "A_RH_hello_O",
+          "ctrl_name": "右手欢迎"
+        },
+        {
+          "ctrl_id": "A_RH_please1_O",
+          "ctrl_name": "右手前方有请"
+        },
+        {
+          "ctrl_id": "A_RH_emphasize_O",
+          "ctrl_name": "右手食指强调"
+        },
+        {
+          "ctrl_name": "右手手掌强调",
+          "ctrl_id": "A_RH_emphasize2_O"
+        },
+        {
+          "ctrl_name": "右手点赞",
+          "ctrl_id": "A_RH_good_O"
+        },
+        {
+          "ctrl_name": "右手握拳加油",
+          "ctrl_id": "A_RH_encourage_O"
+        },
+        {
+          "ctrl_name": "右手向右",
+          "ctrl_id": "A_RH_please_O"
+        },
+        {
+          "ctrl_name": "身体微侧，左手有请",
+          "ctrl_id": "A_LH_please_O"
+        },
+        {
+          "ctrl_name": "双手强调",
+          "ctrl_id": "A_RLH_emphasize_O"
+        }
+      ]
+    },
+    {
+      "avatar_name": "小柔(老版本,后续不兼容)",
+      "avatar_id": "110023005",
+      "ctrl_list": [
+        {
+          "ctrl_name": "打招呼",
+          "ctrl_id": "a1_nihao_R"
+        },
+        {
+          "ctrl_name": "右手向前",
+          "ctrl_id": "a1_youqing_R"
+        },
+        {
+          "ctrl_name": "右手大拇指点赞",
+          "ctrl_id": "a1_dianzan_R"
+        },
+        {
+          "ctrl_name": "比心",
+          "ctrl_id": "a1_bixin_R"
+        },
+        {
+          "ctrl_name": "单手握拳加油",
+          "ctrl_id": "a1_jiayou_R"
+        },
+        {
+          "ctrl_name": "右手向右",
+          "ctrl_id": "a1_jieshao_R"
+        },
+        {
+          "ctrl_name": "左手向左",
+          "ctrl_id": "a1_jieshao_L"
+        },
+        {
+          "ctrl_name": "左手向前",
+          "ctrl_id": "a1_youqing_L"
+        },
+        {
+          "ctrl_name": "手指向下指",
+          "ctrl_id": "a1_gouwuche_R"
+        },
+        {
+          "ctrl_name": "手指向上指",
+          "ctrl_id": "a1_guanzhu_R"
+        },
+        {
+          "ctrl_name": "手指向前点点",
+          "ctrl_id": "a2_dianzan_R"
+        },
+        {
+          "ctrl_name": "双手比心",
+          "ctrl_id": "a1_bixin_RL"
+        },
+        {
+          "ctrl_name": "双手加油",
+          "ctrl_id": "a1_jiayou_RL"
+        },
+        {
+          "ctrl_name": "向左看",
+          "ctrl_id": "a1_hudong_L"
+        },
+        {
+          "ctrl_name": "向右看",
+          "ctrl_id": "a1_hudong_R"
+        }
+      ]
+    },
+    {
+      "avatar_name": "晓颜",
+      "avatar_id": "110018008",
+      "ctrl_list": [
+        {
+          "ctrl_name": "右手欢迎",
+          "ctrl_id": "A_RH_hello_O"
+        },
+        {
+          "ctrl_name": "点赞",
+          "ctrl_id": "A_RH_good_O"
+        },
+        {
+          "ctrl_name": "右手手掌强调",
+          "ctrl_id": "A_RH_emphasize2_O"
+        },
+        {
+          "ctrl_name": "右手食指胸前右滑",
+          "ctrl_id": "A_RH_introduced_O_1"
+        },
+        {
+          "ctrl_name": "右手点击",
+          "ctrl_id": "A_RH_click_O"
+        },
+        {
+          "ctrl_name": "右手食指胸前左右摇晃",
+          "ctrl_id": "A_EMPHASIZE_3"
+        },
+        {
+          "ctrl_name": "右手右上",
+          "ctrl_id": "A_RH_introduced1_O"
+        },
+        {
+          "ctrl_name": "左手左上",
+          "ctrl_id": "A_LH_introduced_O"
+        },
+        {
+          "ctrl_name": "双手打开",
+          "ctrl_id": "A_RLH_welcome_O"
+        },
+        {
+          "ctrl_name": "双手强调",
+          "ctrl_id": "A_RLH_emphasize_O"
+        },
+        {
+          "ctrl_name": "双手无奈",
+          "ctrl_id": "A_RLH_puzzle_0"
+        }
+      ]
+    },
+    {
+      "avatar_name": "晓云",
+      "avatar_id": "110022010",
+      "ctrl_list": [
+        {
+          "ctrl_name": "右手欢迎",
+          "ctrl_id": "A_RH_hello_O"
+        },
+        {
+          "ctrl_name": "右手点赞",
+          "ctrl_id": "A_RH_good_O"
+        },
+        {
+          "ctrl_name": "右手手掌强调",
+          "ctrl_id": "A_RH_emphasize2_O"
+        },
+        {
+          "ctrl_name": "右手食指胸前右滑",
+          "ctrl_id": "A_RH_introduced_O_1"
+        },
+        {
+          "ctrl_name": "右手点击",
+          "ctrl_id": "A_RH_click_O"
+        },
+        {
+          "ctrl_name": "你不行",
+          "ctrl_id": "A_RH_EMPHASIZE_O_1"
+        },
+        {
+          "ctrl_name": "右手右上",
+          "ctrl_id": "A_RH_introduced1_O"
+        },
+        {
+          "ctrl_name": "左手左上",
+          "ctrl_id": "A_LH_introduced_O"
+        },
+        {
+          "ctrl_name": "双手打开",
+          "ctrl_id": "A_RLH_welcome_O"
+        },
+        {
+          "ctrl_name": "双手强调",
+          "ctrl_id": "A_RLH_emphasize_O"
+        },
+        {
+          "ctrl_name": "双手无奈",
+          "ctrl_id": "A_RLH_puzzle_0"
+        }
+      ]
+    },
+    {
+      "avatar_name": "知新",
+      "avatar_id": "110005018",
+      "ctrl_list": [
+        {
+          "ctrl_name": "左手点击",
+          "ctrl_id": "A_LH_click_O"
+        },
+        {
+          "ctrl_name": "右手点击",
+          "ctrl_id": "A_RH_click_O"
+        },
+        {
+          "ctrl_name": "双手介绍",
+          "ctrl_id": "A_RLH_introduced_O"
+        },
+        {
+          "ctrl_name": "右手有请",
+          "ctrl_id": "A_RH_please1_O"
+        },
+        {
+          "ctrl_name": "右手欢迎",
+          "ctrl_id": "A_RH_hello_O"
+        },
+        {
+          "ctrl_name": "右手介绍",
+          "ctrl_id": "A_RH_introduced1_O"
+        },
+        {
+          "ctrl_name": "左手介绍",
+          "ctrl_id": "A_LH_introduced_O"
+        }
+      ]
+    }
+  ]
+}
