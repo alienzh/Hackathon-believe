@@ -1,0 +1,7 @@
+**/Pods
+**/*.xcworkspace/**
+**/xcuserdata
+**/build.sh
+**/IOSExport
+**/libs
+**/UnityFramework.framework
