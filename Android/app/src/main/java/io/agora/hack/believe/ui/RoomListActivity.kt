@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
@@ -74,18 +73,19 @@ class RoomListActivity : BaseActivity<ActivityRoomListBinding>() {
         }
         roomAdapter.setOnItemClickListener { adapter, view, position ->
             adapter.getItem(position)?.let {
+                KeyCenter.curRoomSceneId = it.sceneId
                 when (it.sceneId) {
                     RoomScene.Welcome.value -> {
                         WelcomeActivity.startActivity(this, it.roomId)
                     }
                     RoomScene.Classical.value -> {
-                        SinglePlayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
+                        MultiplayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
                     }
                     RoomScene.NightClub.value -> {
                         MultiplayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
                     }
                     RoomScene.CutMelons.value -> {
-                        SinglePlayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
+                        MultiplayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
                     }
                 }
             }

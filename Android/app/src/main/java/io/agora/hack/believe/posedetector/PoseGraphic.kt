@@ -22,16 +22,17 @@ import android.graphics.Paint
 import com.google.mlkit.vision.common.PointF3D
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
+import io.agora.hack.believe.common.CameraSource
 import io.agora.hack.believe.common.GraphicOverlay
 import io.agora.hack.believe.unity.UnityProtocol
 import java.lang.Math.max
 import java.lang.Math.min
-import java.util.Locale
+import java.util.*
 
 /** Draw the detected pose in preview. */
 class PoseGraphic
 internal constructor(
-    overlay: GraphicOverlay,
+    private val overlay: GraphicOverlay,
     private val pose: Pose,
     private val showInFrameLikelihood: Boolean,
     private val visualizeZ: Boolean,
@@ -145,7 +146,6 @@ internal constructor(
             rightAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //28
         }
 
-        // 后置摄像头左右颠倒下
 //        val poseMap = mutableMapOf<Int, PointF3D>().apply {
 //            leftEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 7
 //            rightEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 8
@@ -162,6 +162,8 @@ internal constructor(
 //            leftAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //27
 //            rightAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //28
 //        }
+
+//        val isImageFlipped = cameraSource.getCameraFacing() == CameraSource.CAMERA_FACING_FRONT
         UnityProtocol.sendPosition3DToUnity(poseMap)
 
         // Face

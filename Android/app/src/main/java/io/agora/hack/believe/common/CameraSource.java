@@ -661,18 +661,7 @@ public class CameraSource {
                 pendingFrameData = bytesToByteBuffer.get(data);
                 if (onVideoReadListener!=null){
                     NV21Buffer nv21Buffer = new NV21Buffer(data,previewSize.getWidth(), previewSize.getHeight(),onVideoRunnable);
-//                    JavaI420Buffer i420Buffer = JavaI420Buffer.allocate(previewSize.getWidth(), previewSize.getHeight());
-//                    i420Buffer.getDataY().put(data, 0, i420Buffer.getDataY().limit());
-//                    i420Buffer.getDataU().put(data, i420Buffer.getDataY().limit(), i420Buffer.getDataU().limit());
-//                    i420Buffer.getDataV().put(data, i420Buffer.getDataY().limit() + i420Buffer.getDataU().limit(), i420Buffer.getDataV().limit());
                     onVideoReadListener.onVideoRead(new VideoFrame(nv21Buffer, 0, System.nanoTime()));
-//                    AgoraVideoFrame videoFrame = new AgoraVideoFrame();
-//                    videoFrame.format = AgoraVideoFrame.FORMAT_TEXTURE_OES;
-//                    videoFrame.buf = data;
-//                    videoFrame.timeStamp = System.nanoTime();
-//                    videoFrame.rotation = 0;
-//                    videoFrame.textureID =dummySurfaceTexture.
-//                    onVideoReadListener.onVideoRead(videoFrame);
                 }
 
                 // Notify the processor thread if it is waiting on the next frame (see below).

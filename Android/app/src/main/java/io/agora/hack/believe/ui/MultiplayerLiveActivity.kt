@@ -18,12 +18,12 @@ package io.agora.hack.believe.ui
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.android.gms.common.annotation.KeepName
 import com.unity3d.player.UnityPlayer
 import io.agora.base.VideoFrame
@@ -43,7 +43,6 @@ import io.agora.rtc2.ChannelMediaOptions
 import io.agora.rtc2.Constants
 import io.agora.rtc2.RtcConnection
 import io.agora.rtm.MessageEvent
-import io.agora.rtm.PresenceEvent
 import io.agora.rtm.RtmConstants
 import java.io.IOException
 
@@ -77,7 +76,7 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
 
     private var videoTrackId: Int = -1
     private var rtcConnection: RtcConnection = RtcConnection(channelName, KeyCenter.curUid)
-    private var remoteUid:Int = -1
+    private var remoteUid: Int = -1
 
     private val eventListener = IAgoraRtcClient.IChannelEventListener(
         onJoinChannelSuccess = {
@@ -92,7 +91,8 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
     )
 
     private fun setupRemoteView(uid: Int) {
-       if (remoteUid!=-1) return
+        if (isSingle()) return
+        if (remoteUid != -1) return
         remoteUid = uid
         rtcClient.setupRemoteVideo(
             rtcConnection,
@@ -100,13 +100,17 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
         )
     }
 
-    private fun removeRemoteView(uid:Int){
-        if (remoteUid==uid){
+    // 古风，切瓜是单人场景
+    private fun isSingle(): Boolean {
+        return roomScene == RoomScene.Classical.value || roomScene == RoomScene.CutMelons.value
+    }
+
+    private fun removeRemoteView(uid: Int) {
+        if (remoteUid == uid) {
             binding.layoutRemoteContainer.removeAllViews()
             remoteUid = -1
         }
     }
-
 
     override fun getViewBinding(inflater: LayoutInflater): ActivityMultiplayerLivePreviewBinding {
         return ActivityMultiplayerLivePreviewBinding.inflate(inflater)
@@ -114,10 +118,34 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
 
     override fun sendSceneToUnity() {
         super.sendSceneToUnity()
+        LogTool.d("MultiplayerLiveActivity", "${System.currentTimeMillis() - start}")
         UnityProtocol.sendLoadScene(roomScene)
+
+        // unity load finish 做后续操作
+        binding.loading.root.isVisible = false
+        createCameraSource(selectedModel)
+        startCameraSource()
+        RtmEngineInstance.subscribeMessage(channelName)
+        RtmEngineInstance.setRtmChannelEventListener(
+            RtmEngineInstance.IRtmChannelEventListener(
+                onMessageEvent = { event: MessageEvent? ->
+                    event ?: return@IRtmChannelEventListener
+                    if (event.channelName != channelName) return@IRtmChannelEventListener
+                    val msg =
+                        if (event.messageType != RtmConstants.RtmMessageType.STRING) String(event.message) else String(
+                            event.message
+                        )
+                    handleRtcMessage(msg)
+                },
+            )
+        )
+        joinChannel()
     }
 
+    private var start = System.currentTimeMillis()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        start = System.currentTimeMillis()
         super.onCreate(savedInstanceState)
         window.attributes.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -132,19 +160,17 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
             }
             RoomListActivity.startActivity(this)
         }
-        binding.facingSwitch.setOnCheckedChangeListener { _, isChecked ->
-            LogTool.d(TAG, "Set facing")
-            if (cameraSource != null) {
-                if (isChecked) {
-                    cameraSource?.setFacing(CameraSource.CAMERA_FACING_FRONT)
+        binding.graphicOverlay.setOnClickListener {
+            cameraSource?.let {
+                if (it.cameraFacing == CameraSource.CAMERA_FACING_FRONT) {
+                    it.setFacing(CameraSource.CAMERA_FACING_BACK)
                 } else {
-                    cameraSource?.setFacing(CameraSource.CAMERA_FACING_BACK)
+                    it.setFacing(CameraSource.CAMERA_FACING_FRONT)
                 }
+                binding.previewView.stop()
+                startCameraSource()
             }
-            binding.previewView.stop()
-            startCameraSource()
         }
-        createCameraSource(selectedModel)
     }
 
     private fun joinChannel() {
@@ -164,24 +190,13 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
         channelName = intent.getStringExtra(KEY_CHANNEL_NAME) ?: "Test1"
         roomScene = intent.getIntExtra(KEY_ROOM_SCENE, RoomScene.Welcome.value)
         KeyCenter.channelName = channelName
-        rtcConnection = RtcConnection(channelName,KeyCenter.curUid)
-        RtmEngineInstance.subscribeMessage(channelName)
-        RtmEngineInstance.setRtmChannelEventListener(RtmEngineInstance.IRtmChannelEventListener(
-            onMessageEvent = { event: MessageEvent? ->
-                event ?: return@IRtmChannelEventListener
-                if (event.channelName != channelName) return@IRtmChannelEventListener
-                val msg =
-                    if (event.messageType != RtmConstants.RtmMessageType.STRING) String(event.message) else String(
-                        event.message
-                    )
-                handleRtcMessage(msg)
-            },
-        ))
-        joinChannel()
+        rtcConnection = RtcConnection(channelName, KeyCenter.curUid)
     }
 
     private fun handleRtcMessage(msg: String) {
         LogTool.d(TAG, "handleRtcMessage $msg")
+        // 单人场景不处理
+        if (isSingle()) return
         UnityProtocol.sendPosition3DToUnity(msg)
     }
 
@@ -256,7 +271,6 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
     public override fun onResume() {
         super.onResume()
         LogTool.d(TAG, "onResume")
-        createCameraSource(selectedModel)
         startCameraSource()
     }
 
