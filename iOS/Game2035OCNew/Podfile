@@ -1,0 +1,35 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target 'Game2035OCNew' do
+
+#pod 'GoogleMLKit/BarcodeScanning', '3.2.0'
+#pod 'GoogleMLKit/FaceDetection', '3.2.0'
+#pod 'GoogleMLKit/ImageLabeling', '3.2.0'
+#pod 'GoogleMLKit/ImageLabelingCustom', '3.2.0'
+#pod 'GoogleMLKit/ObjectDetection', '3.2.0'
+#pod 'GoogleMLKit/ObjectDetectionCustom', '3.2.0'
+pod 'GoogleMLKit/PoseDetection', '3.2.0'
+pod 'GoogleMLKit/PoseDetectionAccurate', '3.2.0'
+pod 'GoogleMLKit/SegmentationSelfie', '3.2.0'
+#pod 'GoogleMLKit/TextRecognition', '3.2.0'
+#pod 'GoogleMLKit/TextRecognitionChinese', '3.2.0'
+#pod 'GoogleMLKit/TextRecognitionDevanagari', '3.2.0'
+#pod 'GoogleMLKit/TextRecognitionJapanese', '3.2.0'
+#pod 'GoogleMLKit/TextRecognitionKorean', '3.2.0'
+pod 'AgoraRtcEngine_iOS', :path => './libs'
+
+pod 'MJExtension'
+pod 'Masonry'
+pod 'MBProgressHUD'
+pod 'MJRefresh'
+pod 'SDWebImage','5.12.6'
+pod 'HyphenateChat','3.9.5'
+pod 'YYCategories'
+pod 'SVProgressHUD'
+pod 'LSTPopView', '0.3.10'
+pod 'LEEAlert', '1.6.4'
+pod 'ZipArchive'
+
+end
