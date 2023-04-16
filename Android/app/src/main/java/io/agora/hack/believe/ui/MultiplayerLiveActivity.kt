@@ -181,6 +181,7 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
             autoSubscribeAudio = true
             publishCameraTrack = false
             publishCustomVideoTrack = true
+            publishMicrophoneTrack = true
             customVideoTrackId = videoTrackId
         }
         rtcClient.joinChannel(rtcConnection, channelMediaOptions, eventListener)
@@ -208,6 +209,11 @@ class MultiplayerLiveActivity : BaseUnityActivity<ActivityMultiplayerLivePreview
         // If there's no existing cameraSource, create one.
         if (cameraSource == null) {
             cameraSource = CameraSource(this, binding.graphicOverlay)
+            if (roomScene == RoomScene.CutMelons.value) { // 切瓜默认前置摄像头
+                cameraSource?.setFacing(CameraSource.CAMERA_FACING_FRONT)
+            } else {
+                cameraSource?.setFacing(CameraSource.CAMERA_FACING_BACK)
+            }
         }
         cameraSource?.setOnVideoReadListener(object : OnVideoReadListener {
             override fun onVideoRead(videoFrame: VideoFrame) {
