@@ -46,6 +46,8 @@ namespace WFramework
                 btn3.gameObject.SetActive(isShow);
                 //btn4.gameObject.SetActive(isShow);
             });
+            int index = Random.Range(0, 4);
+            loadPanel.GetComponent<Image>().sprite = AgoraGame.ResMgr.assetRef.loadBGs[index];
         }
 
         public void SetProgressValue(float value)

@@ -29,6 +29,7 @@ namespace WFramework
                         AgoraGame.UIMgr.SetProgressValue(v);
                         if (v >= 1)
                         {
+                            AgoraGame.NativeCallProxy.SendMessageToNative("loadSceneSuccess", "{}");
                             Init();
 #if UNITY_EDITOR
                             Test();

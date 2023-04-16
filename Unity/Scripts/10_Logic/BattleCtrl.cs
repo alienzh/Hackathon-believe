@@ -256,8 +256,6 @@ namespace WFramework
                 smoothPosCurrs.Add(sign.transform.localPosition);
                 smoothPosTargets.Add(sign.transform.localPosition);
 
-                Debug.Log(sign.transform.localPosition);
-
                 startPos.Add(sign.transform.localPosition);
             }
 

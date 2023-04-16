@@ -54,7 +54,7 @@ namespace WFramework
                 {
                     //new Vector3(-1,0,-1).normalized,
                     Vector3.left,
-                    Vector3.left,
+                    Vector3.right,
                     Vector3.left,
                 },
                 angleArray = new float[] {
