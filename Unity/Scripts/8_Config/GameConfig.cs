@@ -48,13 +48,13 @@ namespace WFramework
                 {
                     new Vector3(-1,3,-76.5f),
                     new Vector3(-2.75f,0,2f),
-                    new Vector3(0f,0f,0f),
+                    new Vector3(1f,0.5f,0f),
                 },
                 RightDirectionOffset = new Vector3[]
                 {
                     //new Vector3(-1,0,-1).normalized,
                     Vector3.left,
-                    Vector3.left,
+                    Vector3.right,
                     Vector3.left,
                 },
                 angleArray = new float[] {

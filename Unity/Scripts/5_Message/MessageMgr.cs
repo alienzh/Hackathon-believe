@@ -29,6 +29,7 @@ namespace WFramework
                         AgoraGame.UIMgr.SetProgressValue(v);
                         if (v >= 1)
                         {
+                            AgoraGame.NativeCallProxy.SendMessageToNative("loadSceneSuccess", "{}");
                             Init();
 #if UNITY_EDITOR
                             Test();
@@ -68,8 +69,8 @@ namespace WFramework
             {
                 spawnGo = new SpawnGo();
                 spawnGo.Init();
-                trans.localPosition = new Vector3(-3.4393816f, 3.45108986f, -2.96469879f);
-                trans.localEulerAngles = new Vector3(21.3492279f, 20.7692089f, 0.0102049084f);
+                trans.localPosition = new Vector3(0f, 2f, -3f);
+                trans.localEulerAngles = new Vector3(10f, 0, 0f);
             }
 #if point
             pointSim = new PointSim();

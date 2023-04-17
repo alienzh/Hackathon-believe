@@ -10,6 +10,8 @@ namespace WFramework
         [SerializeField] private GameObject[] gos;
         [SerializeField] public RuntimeAnimatorController ac;
         public Sprite[] loadBGs;
+
+        public Sprite[] tipImages;
         public GameObject GetGo(int index, Transform parent)
         {
             if (index < avatars.Length)

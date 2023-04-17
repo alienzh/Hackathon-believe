@@ -8,6 +8,7 @@ namespace WFramework
     {
         private const string ProgressFormatTxt = "正在加载场景：{0}%";
         private const string WaitLoadSceneMessage = "等待加载场景消息";
+        private const string ScoreTxt = "得分：{0}";
 
         private Transform loadPanel;
         private Text loadProgressTipText;
@@ -38,7 +39,7 @@ namespace WFramework
             InitV3SetPanel();
             btnShow = AgoraGame.Root.Find("Canvas/ShowBtn").GetComponent<Button>();
             isShow = false;
-            btnShow.onClick.AddListener(() => 
+            btnShow.onClick.AddListener(() =>
             {
                 isShow = !isShow;
                 btn1.gameObject.SetActive(isShow);
@@ -46,6 +47,11 @@ namespace WFramework
                 btn3.gameObject.SetActive(isShow);
                 //btn4.gameObject.SetActive(isShow);
             });
+            int index = Random.Range(0, 4);
+            loadPanel.GetComponent<Image>().sprite = AgoraGame.ResMgr.assetRef.loadBGs[index];
+
+            tipImage = AgoraGame.Root.Find("Canvas/TipImg").GetComponent<Image>();
+            scoreTxt = AgoraGame.Root.Find("Canvas/TipText").GetComponent<Text>();
         }
 
         public void SetProgressValue(float value)
@@ -107,6 +113,36 @@ namespace WFramework
                 float z = string.IsNullOrEmpty(inputZ.text) ? 0 : float.Parse(inputZ.text);
                 //AgoraGame.Config.sceneConfig.rootOffset = new Vector3(x, y, z);
             });
+        }
+
+        private Image tipImage;
+        private Text scoreTxt;
+        Coroutine coroutine;
+        private Vector2 imgStartPos = new Vector2(-420, 128);
+        public void ShowTipImage(int index)
+        {
+            tipImage.gameObject.SetActive(true);
+            (tipImage.transform as RectTransform).anchoredPosition = imgStartPos + new Vector2(Random.Range(-100f, 100), Random.Range(-100f, 100));
+            tipImage.sprite = AgoraGame.ResMgr.assetRef.tipImages[index];
+            if (coroutine != null)
+            {
+                AgoraGame.ResMgr.assetRef.StopCoroutine(coroutine);
+            }
+            coroutine = AgoraGame.ResMgr.assetRef.StartCoroutine(StartOnceTimer(2, () =>
+            {
+                tipImage.gameObject.SetActive(false);
+                coroutine = null;
+            }));
+        }
+        public void SetScoreText(int value) 
+        {
+            scoreTxt.gameObject.SetActive(true);
+            scoreTxt.text = string.Format(ScoreTxt, value);
+        }
+        private IEnumerator StartOnceTimer(float timer, System.Action action)
+        {
+            yield return new WaitForSeconds(timer);
+            action();
         }
     }
 }
