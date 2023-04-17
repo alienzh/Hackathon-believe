@@ -8,13 +8,20 @@ namespace WFramework
     public class SpawnGo
     {
         public static List<Tween> tweens = null;
+        public AudioPlay AudioPlay = null;
         internal void Init()
         {
             tweens = new List<Tween>();
+            AudioPlay = new AudioPlay();
+            AudioPlay.Init();
+            AudioPlay.PlayBGM();
         }
         float currTimer = 0;
         private static Vector3 startPos = new Vector3(0, 1, 16);
         private static Vector3 dire = new Vector3(0, 0, -1);
+        private int score = 0;
+        private float qieInvTime = 0;
+        private bool isBeginQie = false;
         internal void OnUpdate(float dt)
         {
             currTimer += dt;
@@ -29,6 +36,15 @@ namespace WFramework
             for (int i = 0; i < tweens.Count; i++)
             {
                 tweens[i].OnUpdate(dt);
+            }
+            if (isBeginQie)
+            {
+                qieInvTime += dt;
+                if (qieInvTime > 8f)
+                {
+                    qieInvTime = 0f;
+                    AgoraGame.UIMgr.ShowTipImage(1);
+                }
             }
         }
         public void Spawn(int index, Vector3 start, Vector3 end, float dur)
@@ -46,6 +62,22 @@ namespace WFramework
             tweens.Add(tween);
             go.GetComponent<TriggerCmp>().action = () =>
             {
+                AudioPlay.PlayEffectAudio();
+                score++;
+                AgoraGame.UIMgr.SetScoreText(score);
+                if (score % 5 == 0)
+                {
+                    AgoraGame.UIMgr.ShowTipImage(2);
+                }
+                else
+                {
+                    if (Random.value < 0.7f)
+                    {
+                        isBeginQie = true;
+                        AgoraGame.UIMgr.ShowTipImage(0);
+                    }
+                }
+                qieInvTime = 0f;
                 AgoraGame.ResMgr.assetRef.PlayEffect(3, go.transform.localPosition, false, 1);
                 AgoraGame.ResMgr.assetRef.RecycleGo(go);
                 tweens.Remove(tween);
