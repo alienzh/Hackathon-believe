@@ -18,7 +18,6 @@ import androidx.core.view.WindowCompat
 import androidx.viewbinding.ViewBinding
 import com.unity3d.player.IUnityPlayerLifecycleEvents
 import com.unity3d.player.UnityPlayer
-import com.unity3d.player.UnityPlayerEx
 import io.agora.hack.believe.utils.LogTool
 import io.agora.hack.believe.rtc.AgoraRtcEngineInstance
 import io.agora.hack.believe.unity.UnityCallProxy
@@ -80,7 +79,7 @@ abstract class BaseUnityActivity<B : ViewBinding> : AppCompatActivity(), IUnityP
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         initData()
-        mUnityPlayer = UnityPlayerEx(this, this)
+        mUnityPlayer = UnityPlayer(this, this)
         mUnityPlayer?.let {
             setUpUnityPlayer(it)
             it.requestFocus()

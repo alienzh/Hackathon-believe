@@ -2,6 +2,8 @@ package io.agora.hack.believe.unity
 
 import com.google.mlkit.vision.common.PointF3D
 import io.agora.hack.believe.rtc.RtmEngineInstance
+import io.agora.hack.believe.unity.UnityCallProxy.IReceiveUnityMessageDelegate
+import io.agora.hack.believe.utils.DelegateHelper
 import io.agora.hack.believe.utils.KeyCenter
 import io.agora.hack.believe.utils.LogTool
 import org.json.JSONArray
@@ -11,6 +13,36 @@ import org.json.JSONObject
  * @author create by zhangwei03
  */
 object UnityProtocol {
+
+    interface IReceiveMessageDelegate {
+        fun onReceivePoint(msg: String) {}
+    }
+
+    private val delegateHelper = DelegateHelper<IReceiveMessageDelegate>()
+
+    fun bindRespDelegate(delegate: IReceiveMessageDelegate?) {
+        delegateHelper.bindDelegate(delegate)
+    }
+
+    fun unbindRespDelegate(delegate: IReceiveMessageDelegate?) {
+        delegateHelper.unBindDelegate(delegate)
+    }
+
+    fun sendPosition3DToUdp(pointMap: Map<Int, PointF3D>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("userId", KeyCenter.curUid)
+        val jsonObjPoint = JSONObject()
+        pointMap.entries.forEach {
+            val pointF3D = it.value
+            jsonObjPoint.put(it.key.toString(), JSONArray().apply {
+                put(-pointF3D.x)
+                put(-pointF3D.y)
+                put(pointF3D.z)
+            })
+        }
+        jsonObj.put("point", jsonObjPoint)
+        delegateHelper.notifyDelegate { obj: IReceiveMessageDelegate -> obj.onReceivePoint(jsonObj.toString()) }
+    }
 
     fun sendPosition3DToUnity(pointMap: Map<Int, PointF3D>) {
         if (UnityCallProxy.unityLoadCompleted()) {
@@ -27,7 +59,6 @@ object UnityProtocol {
             }
             jsonObj.put("point", jsonObjPoint)
             sendMessageToUnity("userState", jsonObj.toString())
-
             RtmEngineInstance.sendMessage(KeyCenter.channelName, jsonObj.toString())
         }
     }

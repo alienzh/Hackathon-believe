@@ -22,7 +22,6 @@ import android.graphics.Paint
 import com.google.mlkit.vision.common.PointF3D
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
-import io.agora.hack.believe.common.CameraSource
 import io.agora.hack.believe.common.GraphicOverlay
 import io.agora.hack.believe.unity.UnityProtocol
 import java.lang.Math.max
@@ -86,7 +85,7 @@ internal constructor(
 
         // Draw all the points
         for (landmark in landmarks) {
-            drawPoint(canvas, landmark, whitePaint)
+//            drawPoint(canvas, landmark, whitePaint)
             if (visualizeZ && rescaleZForVisualization) {
                 zMin = min(zMin, landmark.position3D.z)
                 zMax = max(zMax, landmark.position3D.z)
@@ -94,8 +93,8 @@ internal constructor(
         }
 
         val nose = pose.getPoseLandmark(PoseLandmark.NOSE)
-        val lefyEyeInner = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_INNER)
-        val lefyEye = pose.getPoseLandmark(PoseLandmark.LEFT_EYE)
+        val leftEyeInner = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_INNER)
+        val leftEye = pose.getPoseLandmark(PoseLandmark.LEFT_EYE)
         val leftEyeOuter = pose.getPoseLandmark(PoseLandmark.LEFT_EYE_OUTER)
         val rightEyeInner = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE_INNER)
         val rightEye = pose.getPoseLandmark(PoseLandmark.RIGHT_EYE)
@@ -130,84 +129,87 @@ internal constructor(
         val rightFootIndex = pose.getPoseLandmark(PoseLandmark.RIGHT_FOOT_INDEX)
 
         val poseMap = mutableMapOf<Int, PointF3D>().apply {
+            nose?.let { put(PoseLandmark.NOSE, it.position3D) } // 0
+            leftEyeInner?.let { put(PoseLandmark.LEFT_EYE_INNER, it.position3D) } // 1
+            leftEye?.let { put(PoseLandmark.LEFT_EYE, it.position3D) } // 2
+            leftEyeOuter?.let { put(PoseLandmark.LEFT_EYE_OUTER, it.position3D) } // 3
+            rightEyeInner?.let { put(PoseLandmark.RIGHT_EYE_INNER, it.position3D) } // 4
+            rightEye?.let { put(PoseLandmark.RIGHT_EYE, it.position3D) } // 5
+            rightEyeOuter?.let { put(PoseLandmark.RIGHT_EYE_OUTER, it.position3D) } // 6
             leftEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 7
             rightEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 8
+            leftMouth?.let { put(PoseLandmark.LEFT_MOUTH, it.position3D) } // 9
+            rightMouth?.let { put(PoseLandmark.RIGHT_MOUTH, it.position3D) } // 10
+
             leftShoulder?.let { put(PoseLandmark.LEFT_SHOULDER , it.position3D) } //11
             rightShoulder?.let { put(PoseLandmark.RIGHT_SHOULDER, it.position3D) } //12
             leftElbow?.let { put(PoseLandmark.LEFT_ELBOW, it.position3D) } //13
             rightElbow?.let { put(PoseLandmark.RIGHT_ELBOW , it.position3D) } //14
             leftWrist?.let { put(PoseLandmark.LEFT_WRIST, it.position3D) } //15
             rightWrist?.let { put(PoseLandmark.RIGHT_WRIST , it.position3D) } //16
+            leftPinky?.let { put(PoseLandmark.LEFT_PINKY , it.position3D) } //17
+            rightPinky?.let { put(PoseLandmark.RIGHT_PINKY , it.position3D) } //18
+            leftIndex?.let { put(PoseLandmark.LEFT_INDEX , it.position3D) } //19
+            rightIndex?.let { put(PoseLandmark.RIGHT_INDEX , it.position3D) } //20
+            leftThumb?.let { put(PoseLandmark.LEFT_THUMB , it.position3D) } //21
+            rightThumb?.let { put(PoseLandmark.RIGHT_THUMB , it.position3D) } //22
             leftHip?.let { put(PoseLandmark.LEFT_HIP, it.position3D) } //23
             rightHip?.let { put(PoseLandmark.RIGHT_HIP , it.position3D) }  //24
             leftKnee?.let { put(PoseLandmark.LEFT_KNEE, it.position3D) } //25
             rightKnee?.let { put(PoseLandmark.RIGHT_KNEE , it.position3D) } //26
             leftAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //27
             rightAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //28
+            leftHeel?.let { put(PoseLandmark.LEFT_HEEL, it.position3D) } //29
+            rightHeel?.let { put(PoseLandmark.RIGHT_HEEL, it.position3D) } //30
+            leftFootIndex?.let { put(PoseLandmark.LEFT_FOOT_INDEX, it.position3D) } //31
+            rightFootIndex?.let { put(PoseLandmark.RIGHT_FOOT_INDEX, it.position3D) } //32
         }
 
-//        val poseMap = mutableMapOf<Int, PointF3D>().apply {
-//            leftEar?.let { put(PoseLandmark.RIGHT_EAR, it.position3D) } // 7
-//            rightEar?.let { put(PoseLandmark.LEFT_EAR, it.position3D) } // 8
-//            leftShoulder?.let { put(PoseLandmark.RIGHT_SHOULDER, it.position3D) } //11
-//            rightShoulder?.let { put(PoseLandmark.LEFT_SHOULDER, it.position3D) } //12
-//            leftElbow?.let { put(PoseLandmark.RIGHT_ELBOW, it.position3D) } //13
-//            rightElbow?.let { put(PoseLandmark.LEFT_ELBOW, it.position3D) } //14
-//            leftWrist?.let { put(PoseLandmark.RIGHT_WRIST, it.position3D) } //15
-//            rightWrist?.let { put(PoseLandmark.LEFT_WRIST, it.position3D) } //16
-//            leftHip?.let { put(PoseLandmark.RIGHT_HIP, it.position3D) } //23
-//            rightHip?.let { put(PoseLandmark.LEFT_HIP, it.position3D) }  //24
-//            leftKnee?.let { put(PoseLandmark.RIGHT_KNEE, it.position3D) } //25
-//            rightKnee?.let { put(PoseLandmark.LEFT_KNEE, it.position3D) } //26
-//            leftAnkle?.let { put(PoseLandmark.RIGHT_ANKLE, it.position3D) } //27
-//            rightAnkle?.let { put(PoseLandmark.LEFT_ANKLE, it.position3D) } //28
-//        }
-
-//        val isImageFlipped = cameraSource.getCameraFacing() == CameraSource.CAMERA_FACING_FRONT
+//        UnityProtocol.sendPosition3DToUdp(poseMap)
         UnityProtocol.sendPosition3DToUnity(poseMap)
 
         // Face
-        drawLine(canvas, nose, lefyEyeInner, whitePaint)
-        drawLine(canvas, lefyEyeInner, lefyEye, whitePaint)
-        drawLine(canvas, lefyEye, leftEyeOuter, whitePaint)
-        drawLine(canvas, leftEyeOuter, leftEar, whitePaint)
-        drawLine(canvas, nose, rightEyeInner, whitePaint)
-        drawLine(canvas, rightEyeInner, rightEye, whitePaint)
-        drawLine(canvas, rightEye, rightEyeOuter, whitePaint)
-        drawLine(canvas, rightEyeOuter, rightEar, whitePaint)
-        drawLine(canvas, leftMouth, rightMouth, whitePaint)
+//        drawLine(canvas, nose, leftEyeInner, whitePaint)
+//        drawLine(canvas, leftEyeInner, leftEye, whitePaint)
+//        drawLine(canvas, leftEye, leftEyeOuter, whitePaint)
+//        drawLine(canvas, leftEyeOuter, leftEar, whitePaint)
+//        drawLine(canvas, nose, rightEyeInner, whitePaint)
+//        drawLine(canvas, rightEyeInner, rightEye, whitePaint)
+//        drawLine(canvas, rightEye, rightEyeOuter, whitePaint)
+//        drawLine(canvas, rightEyeOuter, rightEar, whitePaint)
+//        drawLine(canvas, leftMouth, rightMouth, whitePaint)
+//
+//        drawLine(canvas, leftShoulder, rightShoulder, whitePaint)
+//        drawLine(canvas, leftHip, rightHip, whitePaint)
+//
+//        // Left body
+//        drawLine(canvas, leftShoulder, leftElbow, leftPaint)
+//        drawLine(canvas, leftElbow, leftWrist, leftPaint)
+//        drawLine(canvas, leftShoulder, leftHip, leftPaint)
+//        drawLine(canvas, leftHip, leftKnee, leftPaint)
+//        drawLine(canvas, leftKnee, leftAnkle, leftPaint)
+//        drawLine(canvas, leftWrist, leftThumb, leftPaint)
+//        drawLine(canvas, leftWrist, leftPinky, leftPaint)
+//        drawLine(canvas, leftWrist, leftIndex, leftPaint)
+//        drawLine(canvas, leftIndex, leftPinky, leftPaint)
+//        drawLine(canvas, leftAnkle, leftHeel, leftPaint)
+//        drawLine(canvas, leftHeel, leftFootIndex, leftPaint)
 
-        drawLine(canvas, leftShoulder, rightShoulder, whitePaint)
-        drawLine(canvas, leftHip, rightHip, whitePaint)
-
-        // Left body
-        drawLine(canvas, leftShoulder, leftElbow, leftPaint)
-        drawLine(canvas, leftElbow, leftWrist, leftPaint)
-        drawLine(canvas, leftShoulder, leftHip, leftPaint)
-        drawLine(canvas, leftHip, leftKnee, leftPaint)
-        drawLine(canvas, leftKnee, leftAnkle, leftPaint)
-        drawLine(canvas, leftWrist, leftThumb, leftPaint)
-        drawLine(canvas, leftWrist, leftPinky, leftPaint)
-        drawLine(canvas, leftWrist, leftIndex, leftPaint)
-        drawLine(canvas, leftIndex, leftPinky, leftPaint)
-        drawLine(canvas, leftAnkle, leftHeel, leftPaint)
-        drawLine(canvas, leftHeel, leftFootIndex, leftPaint)
-
-        // Right body
-        drawLine(canvas, rightShoulder, rightElbow, rightPaint)
-        drawLine(canvas, rightElbow, rightWrist, rightPaint)
-        drawLine(canvas, rightShoulder, rightHip, rightPaint)
-        drawLine(canvas, rightHip, rightKnee, rightPaint)
-        drawLine(canvas, rightKnee, rightAnkle, rightPaint)
-        drawLine(canvas, rightWrist, rightThumb, rightPaint)
-        drawLine(canvas, rightWrist, rightPinky, rightPaint)
-        drawLine(canvas, rightWrist, rightIndex, rightPaint)
-        drawLine(canvas, rightIndex, rightPinky, rightPaint)
-        drawLine(canvas, rightAnkle, rightHeel, rightPaint)
-        drawLine(canvas, rightHeel, rightFootIndex, rightPaint)
+//        // Right body
+//        drawLine(canvas, rightShoulder, rightElbow, rightPaint)
+//        drawLine(canvas, rightElbow, rightWrist, rightPaint)
+//        drawLine(canvas, rightShoulder, rightHip, rightPaint)
+//        drawLine(canvas, rightHip, rightKnee, rightPaint)
+//        drawLine(canvas, rightKnee, rightAnkle, rightPaint)
+//        drawLine(canvas, rightWrist, rightThumb, rightPaint)
+//        drawLine(canvas, rightWrist, rightPinky, rightPaint)
+//        drawLine(canvas, rightWrist, rightIndex, rightPaint)
+//        drawLine(canvas, rightIndex, rightPinky, rightPaint)
+//        drawLine(canvas, rightAnkle, rightHeel, rightPaint)
+//        drawLine(canvas, rightHeel, rightFootIndex, rightPaint)
 
         // Draw inFrameLikelihood for all points
-        if (showInFrameLikelihood) {
+       if (showInFrameLikelihood) {
             for (landmark in landmarks) {
                 canvas.drawText(
                     String.format(Locale.US, "%.2f", landmark.inFrameLikelihood),

@@ -94,7 +94,7 @@ object RtmEngineInstance {
     fun sendMessage(channelName: String, message: String) {
         rtmClient.publish(channelName, message, null, object : ResultCallback<Void> {
             override fun onSuccess(responseInfo: Void?) {
-                LogTool.d( "rtm sendMessage onSuccess")
+//                LogTool.d( "rtm sendMessage onSuccess")
             }
 
             override fun onFailure(errorInfo: ErrorInfo?) {

@@ -69,21 +69,19 @@ class RoomListActivity : BaseActivity<ActivityRoomListBinding>() {
             finish()
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
-            ThreadTools.get().runOnMainThreadDelay({ binding.swipeRefreshLayout.isRefreshing = false }, 1000)
+            ThreadTools.get()
+                .runOnMainThreadDelay({ binding.swipeRefreshLayout.isRefreshing = false }, 1000)
         }
         roomAdapter.setOnItemClickListener { adapter, view, position ->
             adapter.getItem(position)?.let {
                 KeyCenter.curRoomSceneId = it.sceneId
                 when (it.sceneId) {
                     RoomScene.Welcome.value -> {
-                        WelcomeActivity.startActivity(this, it.roomId)
+//                        WelcomeActivity.startActivity(this, it.roomId)
+                        CameraUdpDemoActivity.startActivity(this)
                     }
-                    RoomScene.Classical.value -> {
-                        MultiplayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
-                    }
-                    RoomScene.NightClub.value -> {
-                        MultiplayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
-                    }
+                    RoomScene.Classical.value,
+                    RoomScene.NightClub.value,
                     RoomScene.CutMelons.value -> {
                         MultiplayerLiveActivity.startActivity(this, it.roomId, it.sceneId)
                     }
@@ -114,16 +112,24 @@ class RoomListActivity : BaseActivity<ActivityRoomListBinding>() {
         }
 
         if (permissionsToRequest.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), PERMISSION_REQUESTS)
+            ActivityCompat.requestPermissions(
+                this,
+                permissionsToRequest.toTypedArray(),
+                PERMISSION_REQUESTS
+            )
         }
     }
 
     private fun isPermissionGranted(context: Context, permission: String): Boolean {
-        if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED) {
-            LogTool.d( "Permission granted: $permission")
+        if (ContextCompat.checkSelfPermission(
+                context,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            LogTool.d("Permission granted: $permission")
             return true
         }
-        LogTool.e( "Permission NOT granted: $permission")
+        LogTool.e("Permission NOT granted: $permission")
         return false
     }
 
